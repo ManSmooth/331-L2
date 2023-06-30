@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AboutViewVue from '@/views/AboutView.vue'
+import StudentListViewVue from '@/views/StudentListView.vue'
 import EventListViewVue from '@/views/EventListView.vue'
 import EventListViewButDifferentVue from '@/views/EventListViewButDifferent.vue'
 
@@ -12,14 +13,19 @@ const router = createRouter({
       component: EventListViewVue
     },
     {
+      path: '/about',
+      name: 'about',
+      component: AboutViewVue
+    },
+    {
       path: '/organizers',
       name: 'event-org-list',
       component: EventListViewButDifferentVue
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AboutViewVue
+      path: '/students',
+      name: 'student-list',
+      component: StudentListViewVue
     }
   ]
 })

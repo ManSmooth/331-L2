@@ -8,6 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/organizers">Organizers</RouterLink>
+      <RouterLink to="/students">Students</RouterLink>
       <RouterLink to="/about">About</RouterLink>
     </nav>
   </header>
