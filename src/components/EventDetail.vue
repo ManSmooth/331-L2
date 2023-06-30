@@ -1,0 +1,18 @@
+<template>
+    <div class="p-4 w-[250px] cursor-pointer border border-[#39495c] hover:scale-[1.01] hover:shadow-md text-right">
+        <p>{{ event.category }}</p>
+        <p class="font-bold">{{ event.organizer }}</p>
+    </div>
+</template>
+
+<script setup lang="ts">
+import type { EventItem } from '@/types';
+import type { PropType } from 'vue';
+
+const props = defineProps({
+    event: {
+        type: Object as PropType<EventItem>,
+        required: true
+    }
+})
+</script>
