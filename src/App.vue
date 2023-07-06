@@ -1,18 +1,28 @@
 <script setup lang="ts">
+import { getCurrentInstance, type Ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProperties.pageSize
+
 </script>
 
 <template>
   <header>
-    <nav class="flex gap-4 items-center p-2 bg-stone-200">
-      <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
-      <RouterLink :to="{ name: 'event-list' }">Home</RouterLink>
-      <RouterLink :to="{ name: 'event-org-list' }">Organizers</RouterLink>
-      <RouterLink :to="{ name: 'student-list' }">Students</RouterLink>
-      <RouterLink :to="{ name: 'about' }">About</RouterLink>
+    <nav class="flex p-2 bg-stone-200 justify-between">
+      <div class="flex flex-row items-center gap-4">
+        <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
+        <RouterLink :to="{ name: 'event-list' }">Home</RouterLink>
+        <RouterLink :to="{ name: 'event-org-list' }">Organizers</RouterLink>
+        <RouterLink :to="{ name: 'student-list' }">Students</RouterLink>
+        <RouterLink :to="{ name: 'about' }">About</RouterLink>
+      </div>
+      <div class="flex flex-row items-center gap-4">
+        <div>
+          Page Size
+          <input v-model="pageSize" class="shadow-md px-2 w-8">
+        </div>
+      </div>
     </nav>
   </header>
-
   <RouterView class="p-4" />
 </template>
 
