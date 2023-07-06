@@ -6,14 +6,14 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
     <nav class="flex gap-4 items-center p-2 bg-stone-200">
       <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/organizers">Organizers</RouterLink>
-      <RouterLink to="/students">Students</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink :to="{ name: 'event-list' }">Home</RouterLink>
+      <RouterLink :to="{ name: 'event-org-list' }">Organizers</RouterLink>
+      <RouterLink :to="{ name: 'student-list' }">Students</RouterLink>
+      <RouterLink :to="{ name: 'about' }">About</RouterLink>
     </nav>
   </header>
 
-  <RouterView class="p-4"/>
+  <RouterView class="p-4" />
 </template>
 
 <style scoped>

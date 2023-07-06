@@ -1,7 +1,7 @@
 <template>
     <div class="p-4 w-[250px] cursor-pointer border border-[#39495c] hover:scale-[1.01] hover:shadow-md text-right">
-        <p>{{ event.category }}</p>
-        <p class="font-bold">{{ event.organizer }}</p>
+        <p>{{ props.event.category }}</p>
+        <p class="font-bold">{{ props.event.organizer }}</p>
     </div>
 </template>
 
