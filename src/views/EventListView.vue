@@ -45,11 +45,11 @@ function changePage(page: number) {
 	<main class="flex flex-col items-center gap-4">
 		<EventCardVue v-for="event in events" :key="event.id" :event="event" />
 		<div class="flex justify-between w-64">
-			<RouterLink class="p-2 border border-black hover:shadow-md hover:bg-stone-400"
+			<RouterLink class="p-2 border border-inherit hover:shadow-md hover:bg-stone-600"
 				:to="{ name: 'event-list', query: { page: props.page - 1 } }" rel="prev"
 				:class="{ 'invisible': props.page <= 1 }">
 				&lt;</RouterLink>
-			<RouterLink class="p-2 border border-black hover:shadow-md hover:bg-stone-400"
+			<RouterLink class="p-2 border border-inherit hover:shadow-md hover:bg-stone-600"
 				:to="{ name: 'event-list', query: { page: props.page + 1 } }" rel="next"
 				:class="{ 'invisible': !hasNextPage }">
 				&gt;</RouterLink>

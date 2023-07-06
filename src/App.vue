@@ -6,14 +6,14 @@ const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProp
 </script>
 
 <template>
-  <header>
-    <nav class="flex p-2 bg-stone-200 justify-between">
+  <header class="leading-relaxed">
+    <nav class="flex p-2 bg-teal-400 justify-between">
       <div class="flex flex-row items-center gap-4">
         <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
-        <RouterLink :to="{ name: 'event-list' }">Home</RouterLink>
-        <RouterLink :to="{ name: 'event-org-list' }">Organizers</RouterLink>
-        <RouterLink :to="{ name: 'student-list' }">Students</RouterLink>
-        <RouterLink :to="{ name: 'about' }">About</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'event-list' }">Home</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'event-org-list' }">Organizers</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'student-list' }">Students</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'about' }">About</RouterLink>
       </div>
       <div class="flex flex-row items-center gap-4">
         <div>
@@ -23,7 +23,7 @@ const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProp
       </div>
     </nav>
   </header>
-  <RouterView class="p-4" />
+  <RouterView class="p-4 text-white border-white" />
 </template>
 
 <style scoped>
@@ -31,31 +31,5 @@ const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProp
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50
-}
-
-nav a:first-of-type {
-  border: 0;
 }
 </style>

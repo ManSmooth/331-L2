@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="p-4 w-[320px] cursor-pointer border border-[#39495c] hover:scale-[1.01] hover:shadow-md flex flex-col gap-2">
+        <div class="p-4 w-[320px] cursor-pointer border hover:scale-[1.01] hover:shadow-md flex flex-col gap-2">
             <div class="flex flex-row justify-between">
                 <p class="text-xs opacity-50">{{ student.studentId }}</p>
                 <p class="text-xs">GPA: {{ student.gpa }}</p>
