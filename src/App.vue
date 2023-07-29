@@ -11,7 +11,7 @@ const { message } = storeToRefs(store)
 </script>
 
 <template>
-  <header class="leading-relaxed">
+  <header class="leading-normal max-h-screen">
     <div v-if="message" class="animate-flashMessage">
       <p class="text-lg">{{ message }}</p>
     </div>
