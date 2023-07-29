@@ -1,24 +1,37 @@
 <script setup lang="ts">
 import { getCurrentInstance, type Ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
-const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProperties.pageSize
+import { useMessageStore } from './stores/message';
+import { storeToRefs } from 'pinia';
+import 'nprogress/nprogress.css'
 
+const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProperties.pageSize
+const store = useMessageStore()
+const { message } = storeToRefs(store)
 </script>
 
 <template>
   <header class="leading-relaxed">
+    <div v-if="message" class="animate-flashMessage">
+      <p class="text-lg">{{ message }}</p>
+    </div>
     <nav class="flex p-2 bg-teal-400 justify-between">
       <div class="flex flex-row items-center gap-4">
         <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
-        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'event-list' }">Home</RouterLink>
-        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'event-org-list' }">Organizers</RouterLink>
-        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'student-list' }">Students</RouterLink>
-        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'about' }">About</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold"
+          :to="{ name: 'event-list', query: { page: 1 } }">Home
+        </RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'event-org-list' }">
+          Organizers</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'student-list' }">
+          Students</RouterLink>
+        <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold" :to="{ name: 'about' }">About
+        </RouterLink>
       </div>
       <div class="flex flex-row items-center gap-4">
         <div>
           Page Size
-          <input v-model="pageSize" class="shadow-md px-2 w-8">
+          <input type="number" v-model="pageSize" class="shadow-md px-2 w-16">
         </div>
       </div>
     </nav>

@@ -3,7 +3,9 @@ import EventCardVue from '@/components/EventCard.vue';
 import type { EventItem } from '@/types';
 import { computed, getCurrentInstance, onMounted, ref, watch, type Ref } from 'vue';
 import EventService from '@/services/EventServices';
-import { RouterLink } from 'vue-router';
+import { RouterLink, onBeforeRouteUpdate, type NavigationGuardNext } from 'vue-router';
+import nProgress from 'nprogress'
+import { useRouter } from 'vue-router';
 const events = ref<EventItem[]>([])
 const totalEvents = ref<number>(0)
 const props = defineProps({
@@ -13,13 +15,7 @@ const props = defineProps({
 	}
 })
 const pageSize: Ref<number> = getCurrentInstance()?.appContext.config.globalProperties.pageSize
-watch(() => pageSize.value, () => {
-	changePage(props.page)
-}, {
-	deep: true
-})
-
-
+const router = useRouter()
 const hasNextPage = computed(() => {
 	return props.page.valueOf() < Math.ceil(totalEvents.value / pageSize.value)
 })
@@ -28,14 +24,20 @@ onMounted(() => {
 	changePage(props.page)
 })
 
-watch(() => props.page, (newPage) => {
-	changePage(newPage)
+onBeforeRouteUpdate((to, from, next) => {
+	const toPage = Number(to.query.page)
+	changePage(toPage, next)
 })
 
-function changePage(page: number) {
+
+function changePage(page: number, next?: NavigationGuardNext) {
 	EventService.getEvent(pageSize.value, page).then((res) => {
 		events.value = res.data
 		totalEvents.value = res.headers['x-total-count']
+		if (next) next()
+	}).catch(() => {
+		if (next) next({ name: 'NetworkError' })
+		else router.push({ name: 'NetworkError' })
 	})
 }
 
@@ -54,4 +56,5 @@ function changePage(page: number) {
 				:class="{ 'invisible': !hasNextPage }">
 				&gt;</RouterLink>
 		</div>
-	</main></template>
+	</main>
+</template>

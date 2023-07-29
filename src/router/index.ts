@@ -9,6 +9,9 @@ import EventEditViewVue from '@/views/event/EventEditView.vue'
 import EventRegisterViewVue from '@/views/event/EventRegisterView.vue'
 import NotFoundViewVue from '@/views/NotFoundView.vue'
 import NetworkErrorViewVue from '@/views/NetworkErrorView.vue'
+import nProgress from 'nprogress'
+import EventServices from '@/services/EventServices'
+import { useEventStore } from '@/stores/event'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,8 +23,8 @@ const router = createRouter({
       props: (route) => ({ page: parseInt(route.query?.page as string) }),
       beforeEnter: (to, _, next) => {
         if (
-          parseInt(to.query?.page as string) < 1 ||
           !to.query?.page ||
+          parseInt(to.query?.page as string) < 1 ||
           isNaN(parseInt(to.query?.page as string))
         ) {
           next({ name: 'event-list', query: { page: 1 } })
@@ -48,7 +51,20 @@ const router = createRouter({
     {
       path: '/event/:id',
       component: EventLayoutViewVue,
-      props: true,
+      beforeEnter: (to) => {
+        const id: number = parseInt(to.params.id as string)
+        const eventStore = useEventStore()
+        EventServices.getEventById(id)
+          .then((res) => {
+            eventStore.setEvent(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+            if (err.response && err.response.status == 404)
+              return { name: '404-resource', params: { resource: 'event' } }
+            else if (err.code === 'ERR_NETWORK') return { name: 'network-error' }
+          })
+      },
       children: [
         {
           path: 'detail',
@@ -68,26 +84,34 @@ const router = createRouter({
           name: 'event-edit',
           component: EventEditViewVue,
           props: true
-        },
+        }
       ]
     },
     {
       path: '/404/:resource',
       name: '404-resource',
       component: NotFoundViewVue,
-      props: true,
+      props: true
     },
     {
       path: '/network-error',
       name: 'network-error',
-      component: NetworkErrorViewVue,
+      component: NetworkErrorViewVue
     },
     {
       path: '/:catchAll(.*)',
       name: 'not-found',
       component: NotFoundViewVue
-    },
+    }
   ]
+})
+
+router.beforeEach(() => {
+  nProgress.start()
+})
+
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router
