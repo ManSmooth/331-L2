@@ -4,7 +4,6 @@ import type { EventItem } from '@/types';
 import { computed, getCurrentInstance, onMounted, ref, watch, type Ref } from 'vue';
 import EventService from '@/services/EventServices';
 import { RouterLink, onBeforeRouteUpdate, type NavigationGuardNext } from 'vue-router';
-import nProgress from 'nprogress'
 import { useRouter } from 'vue-router';
 const events = ref<EventItem[]>([])
 const totalEvents = ref<number>(0)
@@ -27,6 +26,12 @@ onMounted(() => {
 onBeforeRouteUpdate((to, from, next) => {
 	const toPage = Number(to.query.page)
 	changePage(toPage, next)
+})
+
+watch(() => pageSize, () => {
+	changePage(props.page)
+}, {
+	deep: true
 })
 
 
