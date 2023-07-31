@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import EventDetail from '@/components/EventDetail.vue';
 import type { EventItem } from '@/types';
 import { ref } from 'vue';
-import axios from 'axios';
+import EventService from '@/services/EventServices';
+import { useRouter } from 'vue-router';
+import EventDetail from '@/components/EventDetail.vue';
 const events = ref<EventItem[]>([])
-axios.get<EventItem[]>('http://localhost:3030/events').then((res) => {
+const router = useRouter()
+EventService.getEvent(32, 1).then((res) => {
 	events.value = res.data
+}).catch(() => {
+	router.push({ name: 'NetworkError' })
 })
 </script>
 

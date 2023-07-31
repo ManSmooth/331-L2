@@ -39,7 +39,7 @@ const router = createRouter({
       component: AboutViewVue
     },
     {
-      path: '/organizers',
+      path: '/org',
       name: 'event-org-list',
       component: EventListViewButDifferentVue
     },
