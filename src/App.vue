@@ -17,7 +17,7 @@ const { message } = storeToRefs(store)
     </div>
     <nav class="flex p-2 bg-teal-400 justify-between">
       <div class="flex flex-row items-center gap-4">
-        <h1 class="font-serif text-3xl font-bold">Events For Good</h1>
+        <h1 class="font-serif text-3xl font-bold">Sarin <span class="text-teal-700">Patanompee</span></h1>
         <RouterLink class="[&.router-link-active]:text-sky-100 text-black font-bold"
           :to="{ name: 'event-list', query: { page: 1 } }">Home
         </RouterLink>
