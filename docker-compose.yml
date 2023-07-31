@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+    web:
+        image: "mansmooth/se331_lab06"
+        ports:
+            - 80:80
